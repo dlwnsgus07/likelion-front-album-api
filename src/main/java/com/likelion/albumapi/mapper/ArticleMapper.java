@@ -17,7 +17,7 @@ public interface ArticleMapper {
     @Select("select * from article where id = #{id}")
     ArticleDto findArticleById(Long id);
 
-    @Insert("insert into article(title, content, img, date, article_like) values(#{id}, #{title), #{content}, #{fileName}, #{date}, #{article_like}")
+    @Insert("insert into article(title, content, img, date, article_like) values(#{title}, #{content}, #{fileName}, #{date}, #{article_like})")
     void saveArticle(Article article);
 
     @Delete("delete from article where id = #{id}")

@@ -44,12 +44,12 @@ public class ArticleController {
         return HttpStatus.OK;
     }
 
-    @RequestMapping(value = "modify/article/{article_id}")
+    @RequestMapping(value = "modify/article/{article_id}", method = RequestMethod.PATCH)
     public HttpStatus modifyArticleById(@PathVariable @Validated Long article_id, @RequestBody @Validated String title, @RequestBody @Validated String content){
         articleService.updateArticle(article_id, title, content);
         return HttpStatus.OK;
     }
-    @RequestMapping(value = "update/article/like/{article_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "update/article/like/{article_id}", method = RequestMethod.PATCH)
     public int updateArticleLike(@PathVariable @Validated Long article_id){
         articleService.updateArticleLike(article_id);
         int countLike = articleService.getArticleLikeCount(article_id);

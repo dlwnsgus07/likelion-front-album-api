@@ -20,7 +20,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class ArticleService implements FileService{
-    ArticleMapper am;
+    public final ArticleMapper am;
     //Article 전체를 반환
     public List<ArticleDto> findAll(){
         return am.findAll();

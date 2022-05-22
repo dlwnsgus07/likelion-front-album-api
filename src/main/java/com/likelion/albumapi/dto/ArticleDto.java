@@ -7,6 +7,6 @@ public class ArticleDto {
     private Long id;
     private String title;
     private String content;
+    private String img;
     private int article_like;
-    private String fileName;
 }
