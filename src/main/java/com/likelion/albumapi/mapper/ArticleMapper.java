@@ -23,7 +23,7 @@ public interface ArticleMapper {
     @Delete("delete from article where id = #{id}")
     void deleteArticle(Long id);
 
-    @Update("update article set title = #{title}, content = #{content} where id = #{id}")
+    @Update("update article set title = #{title}, content = #{content}, date = #{localDateTime} where id = #{id}")
     void modifyArticle(ArticleUpdateDto articleUpdateDto);
 
     @Update("update article set article_like + 1 where id = #{article_id}")

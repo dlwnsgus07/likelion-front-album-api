@@ -1,6 +1,7 @@
 package com.likelion.albumapi.controller;
 
 import com.likelion.albumapi.dto.ArticleDto;
+import com.likelion.albumapi.dto.ArticleModifyDto;
 import com.likelion.albumapi.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -45,8 +46,8 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "modify/article/{article_id}", method = RequestMethod.PATCH)
-    public HttpStatus modifyArticleById(@PathVariable @Validated Long article_id, @RequestBody @Validated String title, @RequestBody @Validated String content){
-        articleService.updateArticle(article_id, title, content);
+    public HttpStatus modifyArticleById(@PathVariable @Validated Long article_id, @RequestBody ArticleModifyDto articleModifyDto){
+        articleService.updateArticle(article_id, articleModifyDto.getTitle(), articleModifyDto.getContent(), articleModifyDto.getLocalDateTime());
         return HttpStatus.OK;
     }
     @RequestMapping(value = "update/article/like/{article_id}", method = RequestMethod.PATCH)

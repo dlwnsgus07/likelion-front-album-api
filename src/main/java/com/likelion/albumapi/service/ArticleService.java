@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -57,7 +57,7 @@ public class ArticleService implements FileService{
     }
 
     //Article 수정
-    public void updateArticle(Long id, String title, String content){
+    public void updateArticle(Long id, String title, String content, LocalDateTime localDateTime){
         ArticleDto articleDto = am.findArticleById(id);
         ArticleUpdateDto articleUpdateDto = new ArticleUpdateDto();
         articleUpdateDto.setId(id);
@@ -74,6 +74,7 @@ public class ArticleService implements FileService{
        else{
            articleUpdateDto.setContent(content);
        }
+       articleUpdateDto.setLocalDateTime(LocalDateTime.now());
         am.modifyArticle(articleUpdateDto);
     }
 
