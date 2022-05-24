@@ -26,7 +26,7 @@ public interface ArticleMapper {
     @Update("update article set title = #{title}, content = #{content}, date = #{localDateTime} where id = #{id}")
     void modifyArticle(ArticleUpdateDto articleUpdateDto);
 
-    @Update("update article set article_like + 1 where id = #{article_id}")
+    @Update("update article set article_like = article.article_like + 1 where id = #{article_id}")
     void updateArticleLike(Long article_id);
 
     @Select("select article_like from article where id = #{article_id}")
