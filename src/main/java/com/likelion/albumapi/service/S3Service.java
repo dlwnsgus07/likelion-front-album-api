@@ -24,18 +24,19 @@ import java.util.UUID;
 @Component
 public class S3Service {
 
-
     private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+
         String fileName = dirName + "/" + createFileName(multipartFile.getOriginalFilename());
         String url;
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(multipartFile.getSize());
         objectMetadata.setContentType(multipartFile.getContentType());
+
         try {
             InputStream inputStream = multipartFile.getInputStream();
              url = putS3(inputStream, fileName, objectMetadata);
@@ -53,17 +54,6 @@ public class S3Service {
     public void deleteFile(String fileName) {
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
     }
-
-//    private Optional<File> convert(MultipartFile file) throws IOException {
-//        File convertFile = new File(file.getOriginalFilename());
-//        if(convertFile.createNewFile()) {
-//            try (FileOutputStream fos = new FileOutputStream(convertFile)) {
-//                fos.write(file.getBytes());
-//            }
-//            return Optional.of(convertFile);
-//        }
-//        return Optional.empty();
-//    }
 
     private String createFileName(String fileName) { // 먼저 파일 업로드 시, 파일명을 난수화하기 위해 random으로 돌립니다.
         return UUID.randomUUID().toString().concat(getFileExtension(fileName));
