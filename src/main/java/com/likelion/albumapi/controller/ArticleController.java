@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "create/article", method = RequestMethod.POST)
-    public HttpStatus createArticle(MultipartHttpServletRequest mul) {
+    public HttpStatus createArticle(MultipartHttpServletRequest mul) throws IOException {
         articleService.createArticle(mul);
         return HttpStatus.OK;
     }
