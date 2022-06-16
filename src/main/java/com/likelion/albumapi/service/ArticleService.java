@@ -31,27 +31,6 @@ public class ArticleService implements FileService{
     @Override
     public void createArticle(MultipartHttpServletRequest mul) {
         MultipartFile file = mul.getFile("file");
-//        if (file.getSize() != 0) {
-//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss-");
-//            Calendar calendar = Calendar.getInstance();
-//            String sysFileName = format.format(calendar.getTime());
-//            sysFileName += file.getOriginalFilename();
-//
-//            Article article = Article.createArticle(
-//                    mul.getParameter("title"),
-//                    mul.getParameter("content"),
-//                    sysFileName
-//                    );
-//
-//            File saveFile = new File(IMAGE_REPO + "/" + sysFileName);
-//
-//            try {
-//                file.transferTo(saveFile);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            am.saveArticle(article);
-//        }
         if (file.getSize() != 0) {
             String sysFileName = null;
             try {
@@ -69,7 +48,7 @@ public class ArticleService implements FileService{
     }
 
     //Article 수정
-    public void updateArticle(Long id, String title, String content, LocalDateTime localDateTime){
+    public void updateArticle(Long id, String title, String content){
         ArticleDto articleDto = am.findArticleById(id);
         ArticleUpdateDto articleUpdateDto = new ArticleUpdateDto();
         articleUpdateDto.setId(id);
