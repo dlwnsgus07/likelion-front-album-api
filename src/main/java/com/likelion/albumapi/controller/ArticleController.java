@@ -3,6 +3,7 @@ package com.likelion.albumapi.controller;
 import com.likelion.albumapi.dto.ArticleDto;
 import com.likelion.albumapi.dto.ArticleModifyDto;
 import com.likelion.albumapi.service.ArticleService;
+import com.likelion.albumapi.service.S3Service;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ArticleController {
     public final ArticleService articleService;
+    public final S3Service s3Service;
 
     @RequestMapping(value = "articles", method = RequestMethod.GET)
     @ApiOperation(value = "모든 게시물 조회", notes = "전체 게시물을 조회한다.")
@@ -47,6 +49,9 @@ public class ArticleController {
     @RequestMapping(value = "delete/article/{article_id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "게시물 삭제", notes = "특정 id를 통해 게시물을 삭제한다.")
     public HttpStatus deleteArticleById(@PathVariable  @Validated Long article_id) {
+        String fileName = articleService.getFileName(article_id);
+        fileName = fileName.replace("https://likelionalbumapi.s3.ap-northeast-2.amazonaws.com/","");
+        s3Service.deleteFile(fileName);
         articleService.deleteArticle(article_id);
         return HttpStatus.OK;
     }

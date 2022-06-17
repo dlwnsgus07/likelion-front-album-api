@@ -81,4 +81,8 @@ public class ArticleService implements FileService{
     public int getArticleLikeCount(Long article_id) {
         return am.getArticleLikeCount(article_id);
     }
+
+    public String getFileName(Long article_id){
+        return am.getFileName(article_id);
+    }
 }

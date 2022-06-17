@@ -31,4 +31,7 @@ public interface ArticleMapper {
 
     @Select("select article_like from article where id = #{article_id}")
     int getArticleLikeCount(Long article_id);
+
+    @Select("select img from article where id = #{article_id}")
+    String getFileName(Long article_id);
 }
