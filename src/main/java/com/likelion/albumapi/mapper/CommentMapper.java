@@ -23,9 +23,9 @@ public interface CommentMapper {
     @Update("update comment set content = #{content}, date = #{localDateTime} where id = #{id}")
     void modifyComment(Long id, String content, LocalDateTime localDateTime);
 
-    @Update("update comment set comment_like = comment.comment_like + 1 where id = #{id}")
-    void updateCommentLike(Long id);
+    @Update("update comment set comment_like = comment.comment_like + 1 where id = #{comment_id}")
+    void updateCommentLike(Long comment_id);
 
-    @Select("select comment_like from comment where id = #{id}")
-    int getCommentLikeCount(Long id);
+    @Select("select comment_like from comment where id = #{comment_id}")
+    int getCommentLikeCount(Long comment_id);
 }

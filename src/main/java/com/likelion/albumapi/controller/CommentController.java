@@ -50,7 +50,6 @@ public class CommentController {
     @RequestMapping(value="update/comment/like/{comment_id}", method = RequestMethod.PATCH)
     public int updateCommentLike(@PathVariable @Validated Long comment_id){
         commentService.updateCommentLike(comment_id);
-        int countLike = commentService.getCommentLikeCount(comment_id);
-        return countLike;
+        return commentService.getCommentLikeCount(comment_id);
     }
 }

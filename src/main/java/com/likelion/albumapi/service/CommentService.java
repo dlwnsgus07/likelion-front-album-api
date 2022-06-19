@@ -36,13 +36,13 @@ public class CommentService {
     }
 
     // Comment 좋아요 수 +
-    public void updateCommentLike(Long id){
-        commentMapper.updateCommentLike(id);
+    public void updateCommentLike(Long comment_id){
+        commentMapper.updateCommentLike(comment_id);
     }
 
     // Comment 좋아요 수 반환.
-    public int getCommentLikeCount(Long id){
-        return commentMapper.getCommentLikeCount(id);
+    public int getCommentLikeCount(Long comment_id){
+        return commentMapper.getCommentLikeCount(comment_id);
     }
 
 }

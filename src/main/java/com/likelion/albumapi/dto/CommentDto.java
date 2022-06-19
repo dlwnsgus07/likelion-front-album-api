@@ -12,4 +12,3 @@ public class CommentDto {
     private LocalDateTime date;
     private int comment_like;
 }
-//data, article_id, 없는 DTO따로 생성
