@@ -16,7 +16,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-
+/src/main/resources/application.properties
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -35,6 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
-application.
+application.properties
 .DS_Store
 MANIFEST.MF
+.

@@ -8,18 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class ArticleService implements FileService{
+    private final S3Service s3Uploader;
     public final ArticleMapper am;
     //Article 전체를 반환
     public List<ArticleDto> findAll(){
@@ -34,30 +31,23 @@ public class ArticleService implements FileService{
     public void createArticle(MultipartHttpServletRequest mul) {
         MultipartFile file = mul.getFile("file");
         if (file.getSize() != 0) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss-");
-            Calendar calendar = Calendar.getInstance();
-            String sysFileName = format.format(calendar.getTime());
-            sysFileName += file.getOriginalFilename();
-
+            String sysFileName = null;
+            try {
+                sysFileName = s3Uploader.upload(file, "static");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Article article = Article.createArticle(
                     mul.getParameter("title"),
                     mul.getParameter("content"),
                     sysFileName
-                    );
-
-            File saveFile = new File(IMAGE_REPO + "/" + sysFileName);
-
-            try {
-                file.transferTo(saveFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            );
             am.saveArticle(article);
         }
     }
 
     //Article 수정
-    public void updateArticle(Long id, String title, String content, LocalDateTime localDateTime){
+    public void updateArticle(Long id, String title, String content){
         ArticleDto articleDto = am.findArticleById(id);
         ArticleUpdateDto articleUpdateDto = new ArticleUpdateDto();
         articleUpdateDto.setId(id);
@@ -89,5 +79,9 @@ public class ArticleService implements FileService{
 
     public int getArticleLikeCount(Long article_id) {
         return am.getArticleLikeCount(article_id);
+    }
+
+    public String getFileName(Long article_id){
+        return am.getFileName(article_id);
     }
 }
