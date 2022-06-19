@@ -28,9 +28,9 @@ public class CommentController {
 
     // 추가 작성 필요
     @RequestMapping(value="create/comment/{article_id}", method = RequestMethod.POST)
-    public HttpStatus createComment(@PathVariable @Validated Long article_id, @RequestBody @Validated String content){
+    public HttpStatus createComment(@PathVariable @Validated Long article_id, @RequestBody @Validated CommentDto commentDto){
         // 게시글 아이디, 댓글 내용
-        commentService.createComment(article_id, content);
+        commentService.createComment(article_id, commentDto.getContent());
         return HttpStatus.OK;
     }
 
