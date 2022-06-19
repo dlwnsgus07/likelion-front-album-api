@@ -25,27 +25,29 @@ public class CommentController {
     }
 
     // 추가 작성 필요
-    @RequestMapping(value="create/comment", method = RequestMethod.POST)
-    public HttpStatus createComment(){
+    @RequestMapping(value="create/comment/{article_id}", method = RequestMethod.POST)
+    public HttpStatus createComment(@PathVariable @Validated Long article_id, @RequestBody @Validated String content){
+        // 게시글 아이디, 댓글 내용
+        commentService.createComment(article_id, content);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value="modify/comment/{comment_id}", method = RequestMethod.PATCH)
-    public HttpStatus modifyComment(@PathVariable @Validated Long id, @RequestBody @Validated String content){
-        commentService.modifyComment(id, content);
+    public HttpStatus modifyComment(@PathVariable @Validated Long comment_id, @RequestBody @Validated String content){
+        commentService.modifyComment(comment_id, content);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value="delete/comment/{comment_id}", method = RequestMethod.DELETE)
-    public HttpStatus deleteComment(@PathVariable @Validated Long id){
-        commentService.deleteComment(id);
+    public HttpStatus deleteComment(@PathVariable @Validated Long comment_id){
+        commentService.deleteComment(comment_id);
         return HttpStatus.OK;
     }
 
     @RequestMapping(value="update/comment/like/{comment_id}", method = RequestMethod.PATCH)
-    public int updateCommentLike(@PathVariable @Validated Long id){
-        commentService.updateCommentLike(id);
-        int countLike = commentService.getCommentLikeCount(id);
+    public int updateCommentLike(@PathVariable @Validated Long comment_id){
+        commentService.updateCommentLike(comment_id);
+        int countLike = commentService.getCommentLikeCount(comment_id);
         return countLike;
     }
 }
