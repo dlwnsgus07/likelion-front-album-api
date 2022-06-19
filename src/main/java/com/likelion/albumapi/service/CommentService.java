@@ -20,13 +20,13 @@ public class CommentService {
         return commentMapper.findAllComment(article_id);
     }
 
-    // Comment를 생성. 추가 작성 필요.
+    // Comment를 생성.
     public void createComment(Long article_id, String content){
         Comment comment = Comment.createComment(article_id, content);
         commentMapper.saveComment(comment);
     }
 
-    // Comment 수정. 추가 작성 필요.
+    // Comment 수정.
     public void modifyComment(Long id, String content, LocalDateTime date){
         commentMapper.modifyComment(id, content, date);
     }
@@ -45,5 +45,4 @@ public class CommentService {
     public int getCommentLikeCount(Long comment_id){
         return commentMapper.getCommentLikeCount(comment_id);
     }
-
 }
