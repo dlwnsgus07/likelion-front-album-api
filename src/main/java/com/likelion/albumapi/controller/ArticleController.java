@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:8080",allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/album/")
 @RequiredArgsConstructor

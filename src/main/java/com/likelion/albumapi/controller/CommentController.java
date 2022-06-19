@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:8080",allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/album/")
 @RequiredArgsConstructor
