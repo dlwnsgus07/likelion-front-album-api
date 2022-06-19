@@ -1,6 +1,7 @@
 package com.likelion.albumapi.mapper;
 
 import com.likelion.albumapi.domain.Article;
+import com.likelion.albumapi.dto.AllArticleDto;
 import com.likelion.albumapi.dto.ArticleDto;
 import com.likelion.albumapi.dto.ArticleUpdateDto;
 import org.apache.ibatis.annotations.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 @Repository
 public interface ArticleMapper {
     @Select("select * from article order by date")
-    ArrayList<ArticleDto> findAll();
+    ArrayList<AllArticleDto> findAll();
 
     @Select("select * from article where id = #{id}")
     ArticleDto findArticleById(Long id);

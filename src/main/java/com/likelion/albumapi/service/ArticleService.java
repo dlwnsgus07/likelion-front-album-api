@@ -1,6 +1,7 @@
 package com.likelion.albumapi.service;
 
 import com.likelion.albumapi.domain.Article;
+import com.likelion.albumapi.dto.AllArticleDto;
 import com.likelion.albumapi.dto.ArticleDto;
 import com.likelion.albumapi.dto.ArticleUpdateDto;
 import com.likelion.albumapi.mapper.ArticleMapper;
@@ -19,7 +20,7 @@ public class ArticleService implements FileService{
     private final S3Service s3Uploader;
     public final ArticleMapper am;
     //Article 전체를 반환
-    public List<ArticleDto> findAll(){
+    public List<AllArticleDto> findAll(){
         return am.findAll();
     }
     public ArticleDto findArticleById(Long id){

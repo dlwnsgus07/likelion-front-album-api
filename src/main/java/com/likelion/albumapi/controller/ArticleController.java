@@ -1,8 +1,11 @@
 package com.likelion.albumapi.controller;
 
+import com.likelion.albumapi.dto.AllArticleDto;
 import com.likelion.albumapi.dto.ArticleDto;
 import com.likelion.albumapi.dto.ArticleModifyDto;
+import com.likelion.albumapi.dto.CommentDto;
 import com.likelion.albumapi.service.ArticleService;
+import com.likelion.albumapi.service.CommentService;
 import com.likelion.albumapi.service.S3Service;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +26,12 @@ import java.util.List;
 public class ArticleController {
     public final ArticleService articleService;
     public final S3Service s3Service;
+    public final CommentService commentService;
 
     @RequestMapping(value = "articles", method = RequestMethod.GET)
     @ApiOperation(value = "모든 게시물 조회", notes = "전체 게시물을 조회한다.")
     public ResponseEntity<?> findAll() {
-        List<ArticleDto> articleDtoList = new ArrayList<>();
+        List<AllArticleDto> articleDtoList = new ArrayList<>();
         articleDtoList = articleService.findAll();
         return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
     }
@@ -42,7 +46,10 @@ public class ArticleController {
     @RequestMapping(value = "{article_id}", method = RequestMethod.GET)
     @ApiOperation(value = "id에 의한 게시물 조회", notes = "특정 id를 통해 단일 게시물을 찾아온다.")
     public ResponseEntity<?> findArticleById(@PathVariable @Validated Long article_id) {
+        List<CommentDto> commentDtoList = new ArrayList<>();
+        commentDtoList = commentService.findAllComment(article_id);
         ArticleDto articleDto = articleService.findArticleById(article_id);
+        articleDto.setComments(commentDtoList);
         return new ResponseEntity<>(articleDto, HttpStatus.OK);
     }
 
