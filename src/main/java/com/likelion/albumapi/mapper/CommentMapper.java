@@ -5,6 +5,7 @@ import com.likelion.albumapi.dto.CommentDto;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Mapper
@@ -20,7 +21,7 @@ public interface CommentMapper {
     void deleteComment(Long id);
 
     @Update("update comment set content = #{content}, date = #{localDateTime} where id = #{id}")
-    void modifyComment(Long id, String content);
+    void modifyComment(Long id, String content, LocalDateTime localDateTime);
 
     @Update("update comment set comment_like = comment.comment_like + 1 where id = #{id}")
     void updateCommentLike(Long id);

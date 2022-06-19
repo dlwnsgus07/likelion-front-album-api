@@ -6,6 +6,7 @@ import com.likelion.albumapi.mapper.CommentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,8 +26,8 @@ public class CommentService {
     }
 
     // Comment 수정. 추가 작성 필요.
-    public void modifyComment(Long id, String content){
-        commentMapper.modifyComment(id, content);
+    public void modifyComment(Long id, String content, LocalDateTime date){
+        commentMapper.modifyComment(id, content, date);
     }
 
     // Comment 삭제

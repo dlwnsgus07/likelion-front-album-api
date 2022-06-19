@@ -1,6 +1,7 @@
 package com.likelion.albumapi.controller;
 
 import com.likelion.albumapi.dto.CommentDto;
+import com.likelion.albumapi.dto.CommentModifyDto;
 import com.likelion.albumapi.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 public class CommentController {
     public final CommentService commentService;
 
-    @RequestMapping(value="{article_id}", method = RequestMethod.GET)
+    @RequestMapping(value="find/{article_id}", method = RequestMethod.GET)
     public ResponseEntity<?> findAllComment(@PathVariable @Validated Long article_id){
         List<CommentDto> commentDtoList = new ArrayList<>();
         commentDtoList = commentService.findAllComment(article_id);
@@ -33,8 +35,9 @@ public class CommentController {
     }
 
     @RequestMapping(value="modify/comment/{comment_id}", method = RequestMethod.PATCH)
-    public HttpStatus modifyComment(@PathVariable @Validated Long comment_id, @RequestBody @Validated String content){
-        commentService.modifyComment(comment_id, content);
+    public HttpStatus modifyComment(@PathVariable @Validated Long comment_id, @RequestBody @Validated CommentModifyDto commentModifyDto){
+        commentModifyDto.setDate(LocalDateTime.now());
+        commentService.modifyComment(comment_id, commentModifyDto.getContent(), commentModifyDto.getDate());
         return HttpStatus.OK;
     }
 
