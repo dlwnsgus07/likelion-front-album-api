@@ -2,6 +2,7 @@ package com.likelion.albumapi.controller;
 
 import com.likelion.albumapi.dto.CommentDto;
 import com.likelion.albumapi.dto.CommentModifyDto;
+import com.likelion.albumapi.dto.CommentSearchDto;
 import com.likelion.albumapi.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class CommentController {
 
     @RequestMapping(value="find/{article_id}", method = RequestMethod.GET)
     public ResponseEntity<?> findAllComment(@PathVariable @Validated Long article_id){
-        List<CommentDto> commentDtoList = new ArrayList<>();
+        List<CommentSearchDto> commentDtoList = new ArrayList<>();
         commentDtoList = commentService.findAllComment(article_id);
         return new ResponseEntity<>(commentDtoList, HttpStatus.OK);
     }

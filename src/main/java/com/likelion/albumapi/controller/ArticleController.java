@@ -1,9 +1,6 @@
 package com.likelion.albumapi.controller;
 
-import com.likelion.albumapi.dto.AllArticleDto;
-import com.likelion.albumapi.dto.ArticleDto;
-import com.likelion.albumapi.dto.ArticleModifyDto;
-import com.likelion.albumapi.dto.CommentDto;
+import com.likelion.albumapi.dto.*;
 import com.likelion.albumapi.service.ArticleService;
 import com.likelion.albumapi.service.CommentService;
 import com.likelion.albumapi.service.S3Service;
@@ -46,7 +43,7 @@ public class ArticleController {
     @RequestMapping(value = "{article_id}", method = RequestMethod.GET)
     @ApiOperation(value = "id에 의한 게시물 조회", notes = "특정 id를 통해 단일 게시물을 찾아온다.")
     public ResponseEntity<?> findArticleById(@PathVariable @Validated Long article_id) {
-        List<CommentDto> commentDtoList = new ArrayList<>();
+        List<CommentSearchDto> commentDtoList = new ArrayList<>();
         commentDtoList = commentService.findAllComment(article_id);
         ArticleDto articleDto = articleService.findArticleById(article_id);
         articleDto.setComments(commentDtoList);

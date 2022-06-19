@@ -2,6 +2,7 @@ package com.likelion.albumapi.service;
 
 import com.likelion.albumapi.domain.Comment;
 import com.likelion.albumapi.dto.CommentDto;
+import com.likelion.albumapi.dto.CommentSearchDto;
 import com.likelion.albumapi.mapper.CommentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CommentService {
     public final CommentMapper commentMapper;
 
     // Article에 대한 Comment 전체를 반환
-    public List<CommentDto> findAllComment(Long article_id){
+    public List<CommentSearchDto> findAllComment(Long article_id){
         return commentMapper.findAllComment(article_id);
     }
 

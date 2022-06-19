@@ -12,5 +12,5 @@ public class ArticleDto {
     private String content;
     private String img;
     private int article_like;
-    private List<CommentDto> comments;
+    private List<CommentSearchDto> comments;
 }

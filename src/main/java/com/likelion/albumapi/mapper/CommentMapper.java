@@ -2,6 +2,7 @@ package com.likelion.albumapi.mapper;
 
 import com.likelion.albumapi.domain.Comment;
 import com.likelion.albumapi.dto.CommentDto;
+import com.likelion.albumapi.dto.CommentSearchDto;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 @Repository
 public interface CommentMapper {
     @Select("select * from comment where article_id = #{article_id} order by date")
-    ArrayList<CommentDto> findAllComment(Long article_id);
+    ArrayList<CommentSearchDto> findAllComment(Long article_id);
 
     @Insert("insert into comment (id, content, article_id, date, comment_like) values(#{id}, #{content}, #{article_id}, #{date}, #{comment_like})")
     void saveComment(Comment article);
